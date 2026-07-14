@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 [AddComponentMenu("DangSon/PlayerController")]
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private int isWalkId;
     private int IsJumId;
+    private float horizontalInput;
+    private Vector2 velocityref = Vector2.zero;
+    public float movementSmoonthing = 0.05f;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +33,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        if(IsGround() && Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(Jum()); 
-        }    
+        horizontalInput = ReadHorizontalInput();
     }
+    private void FixedUpdate()
+    {
+        MovePhysic();
+    }
+
+    private void MovePhysic()
+    {
+      Vector2 targetVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
+      rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, targetVelocity, ref velocityref, movementSmoonthing);
+        if(horizontalInput > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (horizontalInput < 0 && facingRight)
+        {
+            Flip();
+        }
+    }
+
     bool IsGround()
     {
        bool islocalGround = Physics2D.OverlapCircle(groundCheck.position, radius, groundLayer);
@@ -47,22 +66,34 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumForce);
     }
 
-    void Move()
+    private float ReadHorizontalInput()
     {
-        float horizontal =Input.GetAxis("Horizontal");
-        rb.linearVelocity = new Vector2(horizontal*moveSpeed,rb.linearVelocity.y);
-        if((horizontal>0&&!facingRight)||(horizontal<0&&facingRight))
+        float keyboradDir = 0f;
+        var kb = Keyboard.current;
+        if (kb != null)
         {
-            Flip();
+            if (kb.aKey.isPressed||kb.leftArrowKey.isPressed)
+            {
+                keyboradDir = -1f;
+            }
+            else if (kb.dKey.isPressed||kb.rightArrowKey.isPressed)
+            {
+                keyboradDir = 1f;
+            }
         }
-        if(Math.Abs(horizontal)>0)
+       var gp = Gamepad.current;
+        if (gp != null)
         {
-            anim.SetBool(isWalkId, true);
+            if (gp.leftStick.ReadValue().x < -0.1f)
+            {
+                keyboradDir = -1f;
+            }
+            else if (gp.leftStick.ReadValue().x > 0.1f)
+            {
+                keyboradDir = 1f;
+            }   
         }
-        else
-        {
-            anim.SetBool(isWalkId, false);
-        }
+        return keyboradDir;   
     }
 
     private void Flip()
