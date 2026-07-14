@@ -1,0 +1,9 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/MyGame/UI%20Toolkit/UssMain.uss?fileID=7433441132597879392&amp;guid=eeb47b737057cee439714e5ff5000b82&amp;type=3#UssMain" />
+    <engine:VisualElement name="BackGround" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MyGame/Sprite/UI/BackGround.jpg?fileID=5760202260919997367&amp;guid=7efccf284201a5a4ba1b2b1e92301c7a&amp;type=3#BackGround_0&quot;);">
+        <engine:Label text="OPTION" name="Option" class="Label" />
+        <engine:Button text="Start" name="StartGame" class="button" />
+        <engine:Button text="Option" name="OptionGame" class="button" style="background-color: rgb(7, 230, 76);" />
+        <engine:Button text="Exit" name="ExitGame" class="button" style="background-color: rgb(9, 25, 255);" />
+    </engine:VisualElement>
+</engine:UXML>

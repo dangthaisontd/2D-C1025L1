@@ -1,0 +1,21 @@
+Converting script [1 / 3]	[\MyGame\Scripts\Player\PlayerAttack.cs]
+	Fragments : 1
+		[ 0] : Line:   26	InputMethod   GetKeyDown          	(KeyCode.R)
+
+Converting script [2 / 3]	[\MyGame\Scripts\Player\PlayerController.cs]
+	Fragments : 2
+		[ 0] : Line:   33	InputMethod   GetKeyDown          	(KeyCode.Space)
+		[ 1] : Line:   52	InputMethod   GetAxis             	("Horizontal")
+
+Converting script [3 / 3]	[\MyGame\Scripts\Player\PlayerFire.cs]
+	Fragments : 1
+		[ 0] : Line:   21	InputMethod   GetKeyDown          	(KeyCode.F)
+
+
+3 scripts modified!
+Overwriting actual scripts...
+	[0 / 3] from  [D:/BAI TAP UNITY/Game2DStartLearn/CF2-Data/Script-Backups/2024-09-18-21-00\Assets-After/\MyGame\Scripts\Player\PlayerAttack.cs] to [D:/BAI TAP UNITY/Game2DStartLearn/Assets/\MyGame\Scripts\Player\PlayerAttack.cs]
+	[1 / 3] from  [D:/BAI TAP UNITY/Game2DStartLearn/CF2-Data/Script-Backups/2024-09-18-21-00\Assets-After/\MyGame\Scripts\Player\PlayerController.cs] to [D:/BAI TAP UNITY/Game2DStartLearn/Assets/\MyGame\Scripts\Player\PlayerController.cs]
+	[2 / 3] from  [D:/BAI TAP UNITY/Game2DStartLearn/CF2-Data/Script-Backups/2024-09-18-21-00\Assets-After/\MyGame\Scripts\Player\PlayerFire.cs] to [D:/BAI TAP UNITY/Game2DStartLearn/Assets/\MyGame\Scripts\Player\PlayerFire.cs]
+
+Overwriting COMPLETED!
