@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-        if(IsGround() && ControlFreak2.CF2Input.GetKeyDown(KeyCode.Space))
+        if(IsGround() && Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(Jum()); 
         }    
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        float horizontal = ControlFreak2.CF2Input.GetAxis("Horizontal");
+        float horizontal =Input.GetAxis("Horizontal");
         rb.linearVelocity = new Vector2(horizontal*moveSpeed,rb.linearVelocity.y);
         if((horizontal>0&&!facingRight)||(horizontal<0&&facingRight))
         {

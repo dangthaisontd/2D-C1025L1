@@ -18,7 +18,7 @@ public class PlayerFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(ControlFreak2.CF2Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.F))
         {
             Fire();
         }
