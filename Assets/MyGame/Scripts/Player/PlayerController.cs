@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private Vector2 velocityref = Vector2.zero;
     public float movementSmoonthing = 0.05f;
+    private bool jumRequested = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +35,29 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontalInput = ReadHorizontalInput();
+        if (IsJumpPressedThisFrame())
+        {
+            jumRequested = true;
+        }
+
     }
     private void FixedUpdate()
     {
         MovePhysic();
+        if (jumRequested)
+        {
+            tryJum();
+            jumRequested = false;
+        }
+    }
+
+    private void tryJum()
+    {
+       if(IsGround())
+        {
+            rb.AddForce(Vector2.up * jumForce, ForceMode2D.Impulse);
+            anim.SetTrigger(IsJumId);
+        }
     }
 
     private void MovePhysic()
@@ -72,7 +92,26 @@ public class PlayerController : MonoBehaviour
        bool islocalGround = Physics2D.OverlapCircle(groundCheck.position, radius, groundLayer);
        return islocalGround;
     }
-    
+    private bool IsJumpPressedThisFrame()
+    {
+        var kb = Keyboard.current;
+        if (kb != null)
+        {
+            if (kb.spaceKey.wasPressedThisFrame)
+            {
+                return true;
+            }
+        }
+        var gp = Gamepad.current;
+        if (gp != null)
+        {
+            if (gp.buttonSouth.wasPressedThisFrame)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private float ReadHorizontalInput()
     {
         float keyboradDir = 0f;
