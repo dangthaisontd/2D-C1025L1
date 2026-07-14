@@ -52,20 +52,27 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+        if(MathF.Abs(rb.linearVelocity.x) > 0.1f)
+        {
+            anim.SetBool(isWalkId, true);
+        }
+        else
+        {
+            anim.SetBool(isWalkId, false);
+        }
     }
 
     bool IsGround()
     {
+        if(groundCheck == null)
+        {
+            Debug.LogError("groundCheck is null");
+            return false;
+        }
        bool islocalGround = Physics2D.OverlapCircle(groundCheck.position, radius, groundLayer);
        return islocalGround;
     }
-    IEnumerator Jum()
-    {
-        anim.SetTrigger(IsJumId);
-        yield return new WaitForSeconds(0.3f);
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumForce);
-    }
-
+    
     private float ReadHorizontalInput()
     {
         float keyboradDir = 0f;
