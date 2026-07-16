@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 [AddComponentMenu("DangSon/PlayerAttack")]
 public class PlayerAttack : MonoBehaviour
 {
@@ -23,12 +24,30 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+       if(IsAttackThisFrame())
         {
-            anim.SetTrigger(isAttackAnimationId);
-            GetKeyR();
+            if (GetKeyR())
+            {
+                anim.SetTrigger(isAttackAnimationId);
+            }
         }
     }
+    private bool IsAttackThisFrame()
+    {
+        var kb = Keyboard.current;
+        if(kb == null) return false;
+        if(kb.rKey.wasPressedThisFrame)
+        {
+            return true;
+        }
+        var gp = Gamepad.current;
+        if(gp == null) return false;
+        if(gp.buttonWest.wasPressedThisFrame)
+        {
+            return true;
+        }
+        return false;
+    }   
     private bool GetKeyR()
     {
         if (Time.time > nextAttack)

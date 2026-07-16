@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 [AddComponentMenu("DangSon/PlayerFire")]
 public class PlayerFire : MonoBehaviour
 {
@@ -18,10 +19,26 @@ public class PlayerFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (IsAttackThisFrame())
         {
             Fire();
         }
+    }
+    private bool IsAttackThisFrame()
+    {
+        var kb = Keyboard.current;
+        if (kb == null) return false;
+        if (kb.fKey.wasPressedThisFrame)
+        {
+            return true;
+        }
+        var gp = Gamepad.current;
+        if (gp == null) return false;
+        if (gp.buttonEast.wasPressedThisFrame)
+        {
+            return true;
+        }
+        return false;
     }
     private void Fire()
     {
