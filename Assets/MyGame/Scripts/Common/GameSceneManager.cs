@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 [AddComponentMenu("DangSon/GameSceneManager")]
 public class GameSceneManager : MonoBehaviour
 {
-
     public GameObject mainUI;
     public GameObject optionUI;
     public GameObject shopUI;
+    public GameObject shopBuyUI;
     public void OnClickPlay()
     {
         SceneManager.LoadScene("Main");
@@ -19,6 +19,7 @@ public class GameSceneManager : MonoBehaviour
         mainUI.SetActive(false);
         optionUI.SetActive(true);
         shopUI.SetActive(false);
+        shopBuyUI.SetActive(false);
         AudioManager.Instance.PlayOnClick();
     }
     public void OnClickShop()
@@ -26,6 +27,15 @@ public class GameSceneManager : MonoBehaviour
         mainUI.SetActive(false);
         optionUI.SetActive(false);
         shopUI.SetActive(true);
+        shopBuyUI.SetActive(false);
+        AudioManager.Instance.PlayOnClick();
+    }
+    public void OnClickShopBuy()
+    {
+        mainUI.SetActive(false);
+        optionUI.SetActive(false);
+        shopUI.SetActive(false);
+        shopBuyUI.SetActive(true);
         AudioManager.Instance.PlayOnClick();
     }
     public void OnClickExit()

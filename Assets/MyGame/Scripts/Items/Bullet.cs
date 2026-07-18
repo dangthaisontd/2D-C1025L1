@@ -5,21 +5,24 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Property")]
-    public GameObject fxPrefabs;
     public int damageValue = 10;
     [Header("Audio")]
     public AudioClip audioClip;
     [Header("Timer Destroy Bullet")]
-    public float timerDestroy = 1.0f;
+    public float timerLifle = 2.0f;
     // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        Destroy(gameObject, timerDestroy);
+        Invoke(nameof(Hide), timerLifle);
+    }
+    void Hide()
+    {
+        gameObject.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         AudioManager.Instance.PlayPlayerSfxMusic(audioClip);
-        Instantiate(fxPrefabs, transform.position, Quaternion.identity);
+        Instantiate(GameManager.Instance.sfxPrefabs, transform.position, Quaternion.identity);
         if(collision.CompareTag("Enemy"))
         {
             ICanTakeDamage takeDamage = collision.GetComponent<ICanTakeDamage>();
@@ -28,6 +31,6 @@ public class Bullet : MonoBehaviour
                 takeDamage.TakeDamage(damageValue, Vector2.zero, gameObject);
             }
         }   
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

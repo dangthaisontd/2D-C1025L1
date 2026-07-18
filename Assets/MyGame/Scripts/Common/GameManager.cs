@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         instance = this; 
     }
     public int coin;
-  
+    public GameObject sfxPrefabs;
     // Start is called before the first frame update
     void Start()
     {

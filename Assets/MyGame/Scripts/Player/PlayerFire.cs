@@ -11,6 +11,7 @@ public class PlayerFire : MonoBehaviour
     public Transform  bulletPosition;
     public float  bulletSpeed=30.0f;
     private PlayerController playerController;
+    //private int _currentBullets = 30;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +43,14 @@ public class PlayerFire : MonoBehaviour
     }
     private void Fire()
     {
-       GameObject bullet = Instantiate(bulletPrefab, bulletPosition.position,Quaternion.identity);
-       Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+       // if(_currentBullets<=0) return;
+
+        // GameObject bullet = Instantiate(bulletPrefab, bulletPosition.position,Quaternion.identity);
+        GameObject bullet = BulletPool.Instance.GetBullet();
+        bullet.transform.position = bulletPosition.position;
+        bullet.transform.rotation = Quaternion.identity;
+        bullet.SetActive(true);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             if(playerController.FaceRight())
@@ -58,5 +65,6 @@ public class PlayerFire : MonoBehaviour
                 rb.linearVelocity = - bulletPosition.right * bulletSpeed;
             }
         }
+      //  _currentBullets--;
     }
 }
