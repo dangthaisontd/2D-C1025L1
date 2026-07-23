@@ -95,7 +95,10 @@ public class InAppManager : MonoBehaviour
 
     private void OnCheckEntitlement(Entitlement entitlement)
     {
-
+        if(entitlement.Product.definition.id == productRemoveAds)
+        {
+            Debug.Log("Entitlement Check: Remove Ads");
+        }
     }
 
     private void OnPurchaseFailed(FailedOrder order)
@@ -124,12 +127,15 @@ public class InAppManager : MonoBehaviour
                 break;
         }
     }
-
     private void OnPurchaseConfirmedFailed(PendingOrder failedOrder)
     {
-      
+      var p = GetFirstProductInOrder(failedOrder);
+        if(p == null)
+        {
+            Debug.Log("Purchase Confirmed Failed: No product found in order");
+            return;
+        }
     }
-
     private void OnPurchaseConfirmed(ConfirmedOrder order)
     {
         var product = GetFirstProductInOrder(order);
@@ -140,7 +146,6 @@ public class InAppManager : MonoBehaviour
         }
         Debug.Log("Purchase Confirmed: " + product.definition.id);
     }
-   
     // Update is called once per frame
     void Update()
     {

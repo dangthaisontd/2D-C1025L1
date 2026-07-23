@@ -10090,8 +10090,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedBackGround: 0.01
-  speedMidGround: 0.04
-  speedForeGround: 0.1
+  speedMidGround: 0.02
+  speedForeGround: 0.03
 --- !u!1 &1291881145
 GameObject:
   m_ObjectHideFlags: 0
